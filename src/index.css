@@ -2,223 +2,137 @@
 
 @layer base {
   :root {
-    --bg-main: #060813;
-    --bg-card: rgba(13, 17, 33, 0.72);
-    --border-glass: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(99, 102, 241, 0.4);
-    --color-cyan: #06b6d4;
-    --color-indigo: #6366f1;
-    --color-violet: #8b5cf6;
-    --color-rose: #f43f5e;
-    --color-emerald: #10b981;
+    --bg-main: #0c0d12;
+    --bg-surface: #121319;
+    --bg-card: #161821;
+    --bg-card-hover: #1c1e29;
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-medium: rgba(255, 255, 255, 0.12);
+    --border-hover: rgba(255, 255, 255, 0.22);
+    --accent-amber: #f59e0b;
+    --accent-emerald: #10b981;
+    --accent-indigo: #6366f1;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-main);
-    color: #f1f5f9;
+    background-color: #0c0d12;
+    color: #f4f4f5;
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   body {
     overflow-x: hidden;
-    background-color: #060813;
+    background-color: #0c0d12;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  .font-heading {
+  h1, h2, h3, h4, .font-heading {
     font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.02em;
   }
 
-  code,
-  pre,
-  .font-mono {
+  code, pre, .font-mono {
     font-family: 'JetBrains Mono', monospace;
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar - Natural & Sleek */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #060813;
+  background: #0c0d12;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e243d;
+  background: #232530;
   border-radius: 9999px;
-  border: 2px solid #060813;
+  border: 1px solid #0c0d12;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #6366f1, #06b6d4);
+  background: #36394c;
 }
 
-/* Background Grids & Patterns */
-.bg-cosmic-grid {
-  background-size: 44px 44px;
-  background-image:
-    linear-gradient(to right, rgba(99, 102, 241, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
+/* Natural Editorial Grid Pattern */
+.bg-editorial-grid {
+  background-size: 36px 36px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
 }
 
-.bg-dot-matrix {
-  background-size: 24px 24px;
-  background-image: radial-gradient(circle, rgba(99, 102, 241, 0.12) 1px, transparent 1px);
+/* High-End Editorial Card with 3D Perspective */
+.editorial-card {
+  background: #13141b;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
 }
 
-/* Aurora Background Orbs */
-@keyframes aurora-float-1 {
-
-  0%,
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  50% {
-    transform: translate(40px, -30px) scale(1.1);
-  }
+.editorial-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
-@keyframes aurora-float-2 {
-
-  0%,
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  50% {
-    transform: translate(-35px, 25px) scale(0.95);
-  }
+/* Ambient Studio Spotlight */
+.ambient-spotlight {
+  background: radial-gradient(circle 800px at 50% 0%, rgba(255, 255, 255, 0.035), transparent 75%);
 }
 
-.aurora-orb-1 {
-  animation: aurora-float-1 12s ease-in-out infinite;
+/* Clean Tactile Primary Button with Magnetic Support */
+.btn-editorial-primary {
+  background: #f4f4f5;
+  color: #0c0d12;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.aurora-orb-2 {
-  animation: aurora-float-2 15s ease-in-out infinite;
+.btn-editorial-primary:hover {
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
 }
 
-/* Glassmorphism Cards with Specular Highlights */
-.cosmic-card {
-  background: linear-gradient(135deg, rgba(16, 22, 42, 0.75) 0%, rgba(10, 13, 26, 0.85) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow:
-    0 10px 30px -10px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+.btn-editorial-secondary {
+  background: #161821;
+  color: #e4e4e7;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
-.cosmic-card:hover {
-  border-color: rgba(99, 102, 241, 0.45);
-  box-shadow:
-    0 20px 40px -10px rgba(99, 102, 241, 0.15),
-    0 0 25px -5px rgba(6, 182, 212, 0.18),
-    inset 0 1px 0 0 rgba(255, 255, 255, 0.25);
-  transform: translateY(-4px);
+.btn-editorial-secondary:hover {
+  background: #1c1e29;
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
-/* Animated Shimmering Gradient Text */
-@keyframes text-flow {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-
-  100% {
-    background-position: 0% 50%;
-  }
+/* Animated Shimmer Sweep for Badges */
+@keyframes light-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
 }
 
-.text-gradient-aurora {
-  background: linear-gradient(90deg, #38bdf8 0%, #818cf8 25%, #c084fc 50%, #f472b6 75%, #38bdf8 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: text-flow 6s linear infinite;
-}
-
-.text-gradient-cyan-indigo {
-  background: linear-gradient(135deg, #22d3ee 0%, #818cf8 60%, #c084fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gradient-gold-rose {
-  background: linear-gradient(135deg, #fbbf24 0%, #f43f5e 50%, #e11d48 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Shimmer Progress Bar Animation */
-@keyframes shimmer-sweep {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(200%);
-  }
-}
-
-.progress-shimmer {
+.shimmer-badge {
   position: relative;
   overflow: hidden;
 }
 
-.progress-shimmer::after {
+.shimmer-badge::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
+  width: 40%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-  animation: shimmer-sweep 2.5s infinite;
-}
-
-/* Floating animation */
-@keyframes float-subtle {
-
-  0%,
-  100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(0.8deg);
-  }
-}
-
-.animate-float-subtle {
-  animation: float-subtle 5s ease-in-out infinite;
-}
-
-/* Glowing Button Ripple */
-.btn-cosmic-glow {
-  position: relative;
-  background: linear-gradient(135deg, #06b6d4 0%, #6366f1 50%, #8b5cf6 100%);
-  transition: all 0.3s ease;
-}
-
-.btn-cosmic-glow:hover {
-  box-shadow:
-    0 0 30px rgba(6, 182, 212, 0.45),
-    0 0 50px rgba(99, 102, 241, 0.3);
-  transform: translateY(-2px) scale(1.02);
-}
-
-.btn-cosmic-glow:active {
-  transform: translateY(0px) scale(0.98);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  animation: light-sweep 3.5s ease-in-out infinite;
 }

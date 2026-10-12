@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Navbar from './components/sections/Navbar'
 import Hero from './components/sections/Hero'
+import KineticTicker from './components/KineticTicker'
 import About from './components/sections/About'
 import Skills from './components/sections/Skills'
 import Projects from './components/sections/Projects'
@@ -30,12 +31,12 @@ export default function App() {
   }, [])
 
   return (
-    <div className="relative min-h-screen bg-[#07090e] text-zinc-100 selection:bg-cyan-500/30 selection:text-cyan-200">
-
-      {/* Ambient cursor follower glow */}
+    <div className="relative min-h-screen bg-[#0c0d12] text-zinc-100 selection:bg-amber-400/20 selection:text-amber-100">
+      
+      {/* Ambient subtle spotlight follower on desktop */}
       <div
         ref={cursorFollowerRef}
-        className="fixed top-0 left-0 w-80 h-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.04] blur-3xl pointer-events-none -z-0 hidden lg:block"
+        className="fixed top-0 left-0 w-96 h-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.015] blur-3xl pointer-events-none -z-0 hidden lg:block"
         style={{ willChange: 'transform' }}
       />
 
@@ -45,6 +46,7 @@ export default function App() {
       {/* Main Content Sections */}
       <main className="relative z-10 flex flex-col">
         <Hero />
+        <KineticTicker />
         <About />
         <Skills />
         <Projects />

@@ -1,26 +1,29 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { skillsData } from '../../data/portfolioData'
-import { gsap, ScrollTrigger } from '../../hooks/useGSAP'
-import {
-  Code2,
-  FileCode,
-  Sparkles,
-  Palette,
-  Globe,
-  CheckCircle,
-  Server,
-  Network,
-  Database,
-  Cpu,
-  Zap,
-  GitBranch,
-  Boxes,
-  Cloud,
-  CheckSquare,
-  MousePointer,
-  Layout,
-  Layers,
-  Film
+import { gsap } from '../../hooks/useGSAP'
+import { 
+  Code2, 
+  FileCode, 
+  Sparkles, 
+  Palette, 
+  Globe, 
+  CheckCircle, 
+  Server, 
+  Network, 
+  Database, 
+  Cpu, 
+  Zap, 
+  GitBranch, 
+  Boxes, 
+  Cloud, 
+  CheckSquare, 
+  MousePointer, 
+  Layout, 
+  Layers, 
+  Film,
+  CheckCircle2,
+  ShieldCheck,
+  Gauge
 } from 'lucide-react'
 import { FigmaIcon } from '../SocialIcons'
 
@@ -47,6 +50,31 @@ const iconComponents = {
   Film
 }
 
+// Authentic real-world context for each skill
+const skillContextMap = {
+  "React 18 / 19": "Concurrent mode, server actions, complex hook architecture",
+  "TypeScript / JavaScript": "Strict type systems, generative types, contract validation",
+  "GSAP & ScrollTrigger": "60 FPS scroll timelines, FLIP animations, SVG motion",
+  "Tailwind CSS & PostCSS": "Design token sync, responsive layout systems, custom utilities",
+  "Next.js / SSR / RSC": "App router, streaming architecture, edge functions",
+  "HTML5 / Semantic A11y": "WCAG 2.1 AA compliance, screen-reader semantics, ARIA",
+  "Node.js & Express": "RESTful endpoints, middleware architecture, microservices",
+  "REST & GraphQL APIs": "Query optimization, schema validation, real-time caching",
+  "PostgreSQL & Prisma": "Relational schema design, ORM migrations, query indexing",
+  "Supabase & Firebase": "Auth pipelines, row-level security, real-time sync",
+  "Serverless & Edge Functions": "Low-latency regional workers, serverless endpoints",
+  "Vite / Turbopack / Webpack": "Bundle optimization, code-splitting, tree-shaking",
+  "Git / GitHub Actions CI/CD": "Automated test pipelines, release branching, preview builds",
+  "Docker & Containerization": "Reproducible build environments, local service mocks",
+  "Vercel / AWS Amplify": "Zero-downtime deployment, DNS management, edge caching",
+  "Vitest & Playwright E2E": "Unit testing, integration suites, cross-browser automation",
+  "Figma to Code Precision": "Pixel-accurate handoff, design system token alignment",
+  "Micro-interactions & UX": "Haptic feedback cues, responsive transitions, reduced motion",
+  "Responsive & Adaptive Layouts": "Fluid clamp typography, container queries, mobile-first",
+  "Design Token Architecture": "Unified design tokens across CSS, Tailwind & Figma",
+  "Motion Prototyping": "Interactive animation choreography, timeline staging"
+}
+
 export default function Skills() {
   const [activeCategory, setActiveCategory] = useState(0)
   const sectionRef = useRef(null)
@@ -54,40 +82,17 @@ export default function Skills() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate progress bars on scroll into view
-      gsap.utils.toArray('.skill-progress-bar').forEach((bar) => {
-        const targetWidth = bar.getAttribute('data-level') || '85%'
-        gsap.fromTo(
-          bar,
-          { width: '0%' },
-          {
-            width: targetWidth,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: bar,
-              start: 'top 90%',
-              toggleActions: 'play none none none'
-            }
-          }
-        )
-      })
-
-      // Stagger cards in
+      // Stagger cards in with subtle scale
       gsap.fromTo(
         '.skill-card',
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 16, scale: 0.98 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.08,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: cardsContainerRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          }
+          scale: 1,
+          duration: 0.45,
+          stagger: 0.05,
+          ease: 'power2.out'
         }
       )
     }, sectionRef)
@@ -95,8 +100,8 @@ export default function Skills() {
     return () => ctx.revert()
   }, [activeCategory])
 
-  // Mouse tilt micro-interaction on card hover
-  const handleMouseMove = (e, card) => {
+  // 3D tilt micro-interaction on skill card hover
+  const handleCardMouseMove = (e, card) => {
     const rect = card.getBoundingClientRect()
     const x = e.clientX - rect.left - rect.width / 2
     const y = e.clientY - rect.top - rect.height / 2
@@ -104,12 +109,12 @@ export default function Skills() {
       rotateX: -y * 0.05,
       rotateY: x * 0.05,
       transformPerspective: 800,
-      duration: 0.3,
+      duration: 0.25,
       ease: 'power1.out'
     })
   }
 
-  const handleMouseLeave = (card) => {
+  const handleCardMouseLeave = (card) => {
     gsap.to(card, {
       rotateX: 0,
       rotateY: 0,
@@ -122,121 +127,142 @@ export default function Skills() {
     <section
       id="skills"
       ref={sectionRef}
-      className="relative py-28 overflow-hidden bg-cosmic-grid border-t border-white/[0.06]"
+      className="relative py-28 overflow-hidden bg-[#0c0d12] border-t border-white/[0.06]"
     >
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/3 -translate-y-1/2 w-[550px] h-[550px] bg-indigo-600/10 rounded-full blur-[150px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Section Header with Animated Text */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/50 border border-indigo-500/30 text-xs font-mono text-indigo-300 uppercase tracking-widest mb-4 shadow-[0_0_15px_rgba(99,102,241,0.2)]">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+        
+        {/* Section Header */}
+        <div className="max-w-3xl mb-14 text-left">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13141b] border border-white/10 text-xs font-mono text-zinc-400 uppercase tracking-wider mb-4">
             <span>{skillsData.badge}</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight font-heading mb-4">
-            Curated Stack &amp; <span className="text-gradient-aurora">Technical Mastery</span>
+          <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight mb-3">
+            Technical Stack &amp;{' '}
+            <span className="text-zinc-400 font-medium">Domain Expertise</span>
           </h2>
-          <p className="text-base sm:text-lg text-zinc-300">
+          <p className="text-base text-zinc-400">
             {skillsData.subheading}
           </p>
         </div>
 
-        {/* Category Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-14">
+        {/* Category Filter Pills */}
+        <div className="flex flex-wrap items-center gap-2 mb-8">
           {skillsData.categories.map((cat, idx) => (
             <button
               key={cat.name}
               type="button"
               onClick={() => setActiveCategory(idx)}
-              className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 ${activeCategory === idx
-                  ? 'bg-gradient-to-r from-cyan-400 via-indigo-500 to-violet-500 text-white shadow-[0_0_25px_rgba(6,182,212,0.4)] scale-105'
-                  : 'bg-slate-900/80 text-zinc-400 hover:text-white border border-white/[0.08] hover:border-cyan-400/30'
-                }`}
+              className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
+                activeCategory === idx
+                  ? 'bg-white text-zinc-950 font-semibold shadow-sm'
+                  : 'bg-[#13141b] text-zinc-400 hover:text-white border border-white/[0.08] hover:border-white/20'
+              }`}
             >
               {cat.name}
             </button>
           ))}
         </div>
 
-        {/* Category Subtext */}
-        <div className="text-center mb-10">
-          <p className="text-sm font-mono text-cyan-300 max-w-xl mx-auto">
+        {/* Category Description Banner */}
+        <div className="mb-8 p-4 rounded-xl bg-[#13141b]/60 border border-white/[0.06] flex items-center justify-between">
+          <p className="text-xs sm:text-sm text-zinc-400">
             {skillsData.categories[activeCategory].description}
           </p>
+          <span className="text-[11px] font-mono text-zinc-500 hidden sm:inline">
+            {skillsData.categories[activeCategory].skills.length} Core Competencies
+          </span>
         </div>
 
-        {/* Skills Cards Grid */}
+        {/* Skills Matrix Grid */}
         <div
           ref={cardsContainerRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           {skillsData.categories[activeCategory].skills.map((skill) => {
             const IconComponent = iconComponents[skill.icon] || Code2
+            const contextText = skillContextMap[skill.name] || "Production engineering & architectural implementation"
+
             return (
               <div
                 key={skill.name}
-                onMouseMove={(e) => handleMouseMove(e, e.currentTarget)}
-                onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
-                className="skill-card cosmic-card p-6 rounded-2xl relative overflow-hidden group"
+                onMouseMove={(e) => handleCardMouseMove(e, e.currentTarget)}
+                onMouseLeave={(e) => handleCardMouseLeave(e.currentTarget)}
+                className="skill-card editorial-card p-5 rounded-xl flex flex-col justify-between cursor-default"
               >
-                {/* Header: Icon, Name & Tag */}
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 border border-cyan-400/30 flex items-center justify-center text-cyan-300 group-hover:scale-110 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.35)] transition-all">
-                      <IconComponent className="w-5 h-5" />
+                <div>
+                  {/* Header: Icon, Name & Tag */}
+                  <div className="flex items-start justify-between gap-3 mb-3">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-lg bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-200">
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <h4 className="text-sm font-semibold text-white">
+                          {skill.name}
+                        </h4>
+                        <span className="text-[10px] font-mono text-zinc-500">
+                          {skillsData.categories[activeCategory].name}
+                        </span>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-bold text-white group-hover:text-cyan-300 transition-colors">
-                        {skill.name}
-                      </h4>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-zinc-400">
-                        {skillsData.categories[activeCategory].name}
-                      </span>
-                    </div>
+
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#1c1e2a] border border-white/10 text-zinc-300">
+                      {skill.tag}
+                    </span>
                   </div>
 
-                  <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-slate-900 border border-cyan-500/20 text-cyan-300 group-hover:border-cyan-400/40 transition-colors">
-                    {skill.tag}
+                  {/* Real production usage description */}
+                  <p className="text-xs text-zinc-400 leading-relaxed mb-3">
+                    {contextText}
+                  </p>
+                </div>
+
+                {/* Subtle verified in production badge */}
+                <div className="pt-2.5 border-t border-white/[0.06] flex items-center justify-between text-[11px] font-mono text-zinc-500">
+                  <span className="flex items-center gap-1.5 text-zinc-400">
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                    Production Verified
                   </span>
+                  <span>Active</span>
                 </div>
-
-                {/* Animated Proficiency Bar with Shimmer Wave */}
-                <div className="space-y-1.5 pt-2">
-                  <div className="flex justify-between items-center text-xs font-mono">
-                    <span className="text-zinc-400">Proficiency</span>
-                    <span className="text-cyan-300 font-semibold">{skill.level}%</span>
-                  </div>
-                  <div className="w-full h-2 rounded-full bg-slate-950 border border-white/[0.06] overflow-hidden p-0.5">
-                    <div
-                      className="skill-progress-bar progress-shimmer h-full rounded-full bg-gradient-to-r from-cyan-400 via-indigo-500 to-violet-500 shadow-[0_0_12px_rgba(6,182,212,0.5)]"
-                      data-level={`${skill.level}%`}
-                      style={{ width: `${skill.level}%` }}
-                    />
-                  </div>
-                </div>
-
               </div>
             )
           })}
         </div>
 
-        {/* Bottom Banner */}
-        <div className="mt-16 p-6 rounded-2xl cosmic-card flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-3 text-left">
-            <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_10px_#10b981]" />
-            <p className="text-xs sm:text-sm text-zinc-200 font-medium">
-              Always expanding my repertoire with emerging tools, WebGPU, and AI-accelerated workflows.
-            </p>
+        {/* Engineering Standards Checklist */}
+        <div className="mt-12 p-6 rounded-xl editorial-card grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="flex items-center gap-3">
+            <Gauge className="w-5 h-5 text-amber-400 flex-shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-white">Sub-second LCP</p>
+              <p className="text-[11px] text-zinc-400">Optimized critical rendering path</p>
+            </div>
           </div>
-          <a
-            href="#projects"
-            className="text-xs font-mono font-semibold text-cyan-300 hover:text-cyan-200 underline decoration-cyan-400/40 underline-offset-4 flex-shrink-0"
-          >
-            See skills in production &rarr;
-          </a>
+
+          <div className="flex items-center gap-3">
+            <ShieldCheck className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-white">WCAG 2.1 AA A11y</p>
+              <p className="text-[11px] text-zinc-400">Accessible keyboard navigation</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Layers className="w-5 h-5 text-zinc-300 flex-shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-white">Tokenized Architecture</p>
+              <p className="text-[11px] text-zinc-400">Scalable modular design tokens</p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <Sparkles className="w-5 h-5 text-zinc-300 flex-shrink-0" />
+            <div>
+              <p className="text-xs font-semibold text-white">60 FPS Motion</p>
+              <p className="text-[11px] text-zinc-400">Hardware-accelerated transforms</p>
+            </div>
+          </div>
         </div>
 
       </div>
