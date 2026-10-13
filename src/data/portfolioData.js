@@ -1,28 +1,25 @@
-import aliAvatar from '../assets/ali_avatar.jpg'
-import projectNexus from '../assets/project_nexus.jpg'
-import projectVortex from '../assets/project_vortex.jpg'
-import projectAether from '../assets/project_aether.jpg'
-import projectHyperscale from '../assets/project_hyperscale.jpg'
+import projectShopco from '../assets/project_shopco.png'
+import projectLead from '../assets/project_lead.png'
+import projectOptixel from '../assets/project_optixel.png'
 
+/*
+  TODO (fill these in): email, GitHub, LinkedIn and location are not set yet.
+  Empty values are hidden automatically in the Contact section and Footer.
+*/
 export const personalInfo = {
-  name: "Ali Raza",
-  preferredName: "Ali",
-  title: "Senior Frontend Engineer & Creative Technologist",
-  tagline: "Bridging the gap between engineering rigor and high-converting motion design.",
-  status: "Available for high-impact contracts & full-time roles",
-  availabilityBadge: "Open to Work • Q2/Q3 2026",
-  location: "San Francisco, CA (Open to Remote / Worldwide)",
-  email: "ali.creative.dev@gmail.com",
-  phone: "+1 (555) 234-8901",
-  avatar: aliAvatar,
+  name: "Aliasgar",
+  preferredName: "Aliasgar",
+  initial: "A",
+  title: "Web Developer & B.Tech Data Science Student",
+  badge: "Web Developer · Data Science Student",
+  location: "",
+  email: "",
+  avatar: null, // add your own photo, e.g. import it and set it here
   socialLinks: {
-    github: "https://github.com",
-    linkedin: "https://linkedin.com",
-    twitter: "https://x.com",
-    dribbble: "https://dribbble.com",
-    email: "mailto:ali.creative.dev@gmail.com"
-  },
-  resumeUrl: "#contact"
+    github: "",
+    linkedin: "",
+    twitter: ""
+  }
 }
 
 export const navLinks = [
@@ -35,270 +32,185 @@ export const navLinks = [
 ]
 
 export const heroData = {
-  headlinePrefix: "CRAFTING DIGITAL",
-  headlineGradient: "EXPERIENCES",
-  headlineSuffix: "WITH CODE & MOTION",
+  greeting: "Hi, I'm Aliasgar.",
+  headline: "I Build Digital Experiences That Make an Impact.",
   subheadline:
-    "I engineer ultra-responsive, accessible, and cinematic web products. Specializing in modern React ecosystems, buttery 60 FPS GSAP animations, and scalable enterprise design systems.",
-  primaryCta: {
-    label: "Explore Work",
-    href: "#projects"
-  },
-  secondaryCta: {
-    label: "Get in Touch",
-    href: "#contact"
-  },
-  techPills: [
-    { label: "React 19", category: "Core" },
-    { label: "GSAP Motion", category: "Animation" },
-    { label: "Tailwind CSS", category: "Styling" },
-    { label: "TypeScript", category: "Language" },
-    { label: "Next.js & Vite", category: "Architecture" },
-    { label: "WebGL / Three.js", category: "Creative" }
-  ],
-  quickStats: [
-    { value: "5+", label: "Years Experience" },
-    { value: "40+", label: "Shipped Projects" },
-    { value: "99.9%", label: "Client CSAT" }
-  ]
+    "I'm a web developer and B.Tech Data Science student passionate about creating modern, responsive, and interactive websites. I combine clean code, thoughtful design, and engaging animations to turn ideas into digital experiences.",
+  primaryCta: { label: "Explore My Work", href: "#projects" },
+  secondaryCta: { label: "Let's Connect", href: "#contact" },
+  chips: ["React.js", "Next.js", "WordPress"]
 }
 
 export const aboutData = {
   badge: "About Me",
-  heading: "Passionate about pixels, obsessed with performance.",
+  heading: "Turning ideas into",
+  headingGradient: "practical digital solutions.",
   bioParagraphs: [
-    "Hello! I'm Ali, a Senior Frontend Engineer with over 5 years of industry experience turning intricate product visions into crisp, memorable web applications.",
-    "My philosophy centers on creating software that doesn't just function seamlessly behind the scenes, but evokes genuine delight on the screen. I unite design-system architecture with hardware-accelerated animations to drive measurable conversion uplifts and user engagement.",
-    "When I'm not architecting modular component systems or profiling render bottlenecks in Chrome DevTools, you'll find me exploring generative shaders, contributing to open-source UI libraries, and mentoring emerging developers."
+    "I'm Aliasgar, a passionate web developer currently pursuing a B.Tech in Computer Science with a specialization in Data Science at Medi-Caps University.",
+    "My journey in development focuses on building visually appealing, responsive, and functional websites. I work with HTML, CSS, JavaScript, React.js, Next.js, and WordPress with Advanced Custom Fields (ACF) to create customized digital experiences. I also enjoy exploring GSAP animations, reusable components, and custom WordPress themes.",
+    "Alongside web development, my Data Science background helps me develop analytical thinking and a problem-solving mindset. I'm continuously learning, experimenting with new technologies, and improving my ability to transform ideas into practical digital solutions."
   ],
-  stats: [
-    { number: 5, suffix: "+", label: "Years of Experience", description: "Designing & developing production applications" },
-    { number: 42, suffix: "+", label: "Projects Completed", description: "From seed-stage startups to Fortune 500 portals" },
-    { number: 99, suffix: ".8%", label: "Satisfaction Rate", description: "Consistently rated 5 stars by product teams" },
-    { number: 180, suffix: "k+", label: "Lines of Clean Code", description: "Tested, documented, and production ready" }
-  ],
-  highlights: [
-    {
-      icon: "Zap",
-      title: "Performance First",
-      description: "Sub-second initial paint times, 99+ Lighthouse scores, and 60 FPS scroll performance."
-    },
-    {
-      icon: "Layers",
-      title: "Modular Design Systems",
-      description: "Scalable atomic architecture built with reusable, accessible, and tokenized components."
-    },
-    {
-      icon: "Sparkles",
-      title: "Cinematic Motion",
-      description: "Scroll-triggered choreography and micro-interactions that elevate brand credibility."
-    },
-    {
-      icon: "Code2",
-      title: "Clean Modern Codebase",
-      description: "Strict TypeScript types, resilient error boundaries, and zero tech debt ethos."
-    }
-  ]
+  goal:
+    "My goal is to become a well-rounded software developer who combines technical knowledge, creativity, and user-focused thinking to build meaningful products."
 }
 
 export const skillsData = {
-  badge: "Technical Competence",
-  heading: "Curated Stack & Mastery",
-  subheading: "A comprehensive toolbox developed through years of building high-velocity production software.",
+  badge: "Technical Skills",
   categories: [
     {
       name: "Frontend",
-      description: "Core technologies powering fast, fluid, and scalable user interfaces.",
       skills: [
-        { name: "React 18 / 19", level: 96, icon: "Code2", tag: "Expert" },
-        { name: "TypeScript / JavaScript", level: 94, icon: "FileCode", tag: "Advanced" },
-        { name: "GSAP & ScrollTrigger", level: 92, icon: "Sparkles", tag: "Specialist" },
-        { name: "Tailwind CSS & PostCSS", level: 95, icon: "Palette", tag: "Expert" },
-        { name: "Next.js / SSR / RSC", level: 90, icon: "Globe", tag: "Advanced" },
-        { name: "HTML5 / Semantic A11y", level: 98, icon: "CheckCircle", tag: "Mastery" }
+        { name: "HTML5", icon: "Code2" },
+        { name: "CSS3", icon: "Palette" },
+        { name: "JavaScript", icon: "FileCode" },
+        { name: "React.js", icon: "Code2" },
+        { name: "Next.js", icon: "Globe" },
+        { name: "Responsive Design", icon: "Layout" },
+        { name: "GSAP", icon: "Sparkles" }
       ]
     },
     {
-      name: "Backend & APIs",
-      description: "Full-stack integration knowledge to bridge frontend components with servers.",
+      name: "WordPress",
       skills: [
-        { name: "Node.js & Express", level: 85, icon: "Server", tag: "Proficient" },
-        { name: "REST & GraphQL APIs", level: 88, icon: "Network", tag: "Advanced" },
-        { name: "PostgreSQL & Prisma", level: 82, icon: "Database", tag: "Proficient" },
-        { name: "Supabase & Firebase", level: 86, icon: "Cpu", tag: "Proficient" },
-        { name: "Serverless & Edge Functions", level: 84, icon: "Zap", tag: "Proficient" }
+        { name: "WordPress", icon: "Globe" },
+        { name: "Advanced Custom Fields (ACF)", icon: "Layers" },
+        { name: "Custom Themes", icon: "Palette" },
+        { name: "Custom PHP", icon: "FileCode" },
+        { name: "Elementor", icon: "Layout" }
       ]
     },
     {
-      name: "Tools & DevOps",
-      description: "Automation, testing, and modern developer tooling for continuous delivery.",
+      name: "Backend & Database",
       skills: [
-        { name: "Vite / Turbopack / Webpack", level: 91, icon: "Cpu", tag: "Advanced" },
-        { name: "Git / GitHub Actions CI/CD", level: 93, icon: "GitBranch", tag: "Advanced" },
-        { name: "Docker & Containerization", level: 80, icon: "Boxes", tag: "Proficient" },
-        { name: "Vercel / AWS Amplify", level: 92, icon: "Cloud", tag: "Advanced" },
-        { name: "Vitest & Playwright E2E", level: 85, icon: "CheckSquare", tag: "Proficient" }
+        { name: "Node.js", icon: "Server" },
+        { name: "Express.js", icon: "Network" },
+        { name: "PostgreSQL / Neon", icon: "Database" },
+        { name: "REST APIs", icon: "Network" }
       ]
     },
     {
-      name: "UI/UX & Creative",
-      description: "Transforming ambiguous design concepts into crisp, high-converting digital products.",
+      name: "Tools & Other",
       skills: [
-        { name: "Figma to Code Precision", level: 96, icon: "Figma", tag: "Mastery" },
-        { name: "Micro-interactions & UX", level: 92, icon: "MousePointer", tag: "Specialist" },
-        { name: "Responsive & Adaptive Layouts", level: 97, icon: "Layout", tag: "Mastery" },
-        { name: "Design Token Architecture", level: 90, icon: "Layers", tag: "Advanced" },
-        { name: "Motion Prototyping", level: 89, icon: "Film", tag: "Specialist" }
+        { name: "Git", icon: "GitBranch" },
+        { name: "GitHub", icon: "GitBranch" },
+        { name: "Microsoft Excel (Advanced)", icon: "FileSpreadsheet" },
+        { name: "Microsoft Word", icon: "FileText" }
       ]
     }
   ]
 }
 
+// Live (deployed) projects get a real screenshot; the rest are shown as compact cards.
 export const projectsData = [
   {
-    id: "nexus-ai",
-    title: "Nexus AI Engine",
-    subtitle: "Real-time Generative Intelligence & Model Telemetry",
-    description: "An enterprise-grade analytics dashboard that renders complex streaming AI model inference metrics, token consumption graphs, and neural network latency alerts in real time.",
-    image: projectNexus,
-    featured: true,
-    tags: ["React 19", "GSAP", "Tailwind CSS", "Recharts", "WebSockets"],
-    metrics: "40% latency reduction • 99 Lighthouse Score",
-    liveUrl: "https://nexus-ai-demo.web.app",
-    githubUrl: "https://github.com/ali/nexus-ai-engine",
-    accentColor: "from-cyan-500 to-blue-600",
-    glowColor: "rgba(6, 182, 212, 0.4)"
+    id: "shop-co",
+    title: "Shop-Co",
+    type: "E-Commerce Website",
+    description:
+      "An e-commerce website focused on product presentation and a clean online shopping experience.",
+    image: projectShopco,
+    live: true,
+    tags: ["Live Website", "E-Commerce"],
+    liveUrl: "https://shop-co-76.vercel.app/"
   },
   {
-    id: "vortex-defi",
-    title: "Vortex Protocol",
-    subtitle: "High-Frequency Algorithmic Trading Terminal",
-    description: "Next-generation decentralized finance trading platform featuring high-density order books, zero-latency candlestick charts, multi-wallet bridging, and responsive glassmorphic cards.",
-    image: projectVortex,
-    featured: true,
-    tags: ["React", "TypeScript", "Tailwind CSS", "Ethers.js", "Chart.js"],
-    metrics: "Processed $14M+ mock volume • 60 FPS renders",
-    liveUrl: "https://vortex-protocol.example.com",
-    githubUrl: "https://github.com/ali/vortex-protocol",
-    accentColor: "from-emerald-400 to-cyan-500",
-    glowColor: "rgba(16, 185, 129, 0.4)"
+    id: "lead-website",
+    title: "Lead Website",
+    type: "Live Website",
+    description:
+      "A responsive web project showcasing my approach to page layouts, interface design, and clean implementation.",
+    image: projectLead,
+    live: true,
+    tags: ["Live Website", "Responsive"],
+    liveUrl: "https://lead-new-ali.vercel.app/"
   },
   {
-    id: "aether-studio",
-    title: "Aether Motion Studio",
-    subtitle: "Spatial 3D Canvas & Kinetic Typography Engine",
-    description: "A browser-based creative suite that empowers visual designers to orchestrate kinetic animations, particle systems, and 3D geometric wireframes with exportable CSS & GSAP timelines.",
-    image: projectAether,
-    featured: true,
-    tags: ["React", "Three.js", "GSAP ScrollTrigger", "Web Audio API", "Tailwind"],
-    metrics: "12k+ monthly active designers • Webby Nominee",
-    liveUrl: "https://aether-studio.example.com",
-    githubUrl: "https://github.com/ali/aether-studio",
-    accentColor: "from-violet-500 to-fuchsia-500",
-    glowColor: "rgba(139, 92, 246, 0.4)"
+    id: "optixel",
+    title: "Optixel Website",
+    type: "Live Website",
+    description:
+      "A frontend website project highlighting modern design, responsive behavior, and interactions.",
+    image: projectOptixel,
+    live: true,
+    tags: ["Live Website", "Frontend"],
+    liveUrl: "https://optixel-two.vercel.app/"
   },
   {
-    id: "hyperscale-cloud",
-    title: "HyperScale Cloud Matrix",
-    subtitle: "Kubernetes Cluster Topology & DevOps Automation",
-    description: "Multi-cloud infrastructure orchestrator providing visual pod topologies, automated Canary deployment pipelines, live server health heatmaps, and role-based access management.",
-    image: projectHyperscale,
-    featured: false,
-    tags: ["React", "Next.js", "Tailwind CSS", "D3.js", "Docker API"],
-    metrics: "Over 500+ cluster nodes monitored concurrently",
-    liveUrl: "https://hyperscale-cloud.example.com",
-    githubUrl: "https://github.com/ali/hyperscale-cloud",
-    accentColor: "from-blue-500 to-cyan-400",
-    glowColor: "rgba(59, 130, 246, 0.4)"
+    id: "ecommerce-nextjs",
+    title: "E-Commerce Website",
+    type: "Next.js · Web Application",
+    description:
+      "A modern e-commerce experience focused on product presentation, responsive layouts, and a scalable application structure.",
+    icon: "ShoppingBag",
+    live: false,
+    tags: ["Next.js", "Web Application"]
+  },
+  {
+    id: "ai-agency",
+    title: "AI Agency Website",
+    type: "React · Frontend Website",
+    description:
+      "An AI-focused agency website that communicates technical expertise through bold typography, modern layouts, and interactive GSAP motion.",
+    icon: "Bot",
+    live: false,
+    tags: ["React", "GSAP"]
+  },
+  {
+    id: "portfolio-admin",
+    title: "Dynamic Portfolio & Admin Dashboard",
+    type: "React · Express · Neon PostgreSQL",
+    description:
+      "A portfolio management system to manage projects dynamically, with a backend API, database integration, and a media library for reusable assets.",
+    icon: "LayoutDashboard",
+    live: false,
+    tags: ["React", "Express", "PostgreSQL"]
+  },
+  {
+    id: "wp-landing",
+    title: "Custom WordPress Landing Page",
+    type: "WordPress · ACF",
+    description:
+      "A customizable landing page built from reusable theme components and editable ACF content fields for hero, calls to action, forms, and footer.",
+    icon: "PenTool",
+    live: false,
+    tags: ["WordPress", "ACF"]
   }
 ]
 
-export const experienceData = [
+export const educationData = [
   {
-    role: "Lead Frontend Engineer",
-    company: "Aura Labs / Quantum UX",
-    location: "San Francisco, CA (Hybrid)",
-    period: "2024 — Present",
-    type: "Full-Time",
-    description:
-      "Directing core frontend architecture for high-growth SaaS products. Mentoring 6 frontend developers, driving design system adoption, and optimizing performance across high-volume analytics modules.",
-    achievements: [
-      "Engineered design system consumed by 14 product squads, slashing feature delivery times by 35%.",
-      "Architected GSAP micro-interaction choreography resulting in a 22% conversion lift on checkout flows.",
-      "Optimized Core Web Vitals to achieve all-green 98+ Lighthouse benchmarks across enterprise views."
-    ],
-    skills: ["React", "TypeScript", "Tailwind CSS", "GSAP", "Micro-frontends", "Design Systems"]
+    title: "B.Tech in Computer Science — Data Science",
+    place: "Medi-Caps University",
+    period: "2025 – 2029",
+    note: "Currently pursuing"
   },
   {
-    role: "Senior Frontend Developer",
-    company: "Synthetix Digital Agency",
-    location: "New York, NY (Remote)",
-    period: "2022 — 2024",
-    type: "Full-Time",
-    description:
-      "Built bespoke web experiences and motion-heavy landing pages for top venture-backed startups and international lifestyle brands, partnering directly with creative directors.",
-    achievements: [
-      "Delivered 18 client portfolio and product launch applications with 100% on-schedule record.",
-      "Pioneered GSAP ScrollTrigger timeline workflows with reusable custom hooks, saving 50+ hours per build.",
-      "Authored custom WebGL background shader components for 4 Awwwards-featured client portals."
-    ],
-    skills: ["React", "GSAP ScrollTrigger", "Three.js", "Tailwind CSS", "Vite", "Accessibility"]
-  },
-  {
-    role: "Full Stack UI Engineer",
-    company: "CloudScale Technologies",
-    location: "Austin, TX (Remote)",
-    period: "2021 — 2022",
-    type: "Full-Time",
-    description:
-      "Developed high-velocity dashboard components, customer billing portals, and API integrations for an enterprise cloud observability platform.",
-    achievements: [
-      "Built real-time metric charting widgets handling over 100,000 data points with zero frame drops.",
-      "Migrated monolithic legacy codebase to a modern React & Tailwind component library.",
-      "Integrated automated end-to-end testing pipeline reducing regression incidents by 40%."
-    ],
-    skills: ["React", "Node.js", "REST APIs", "Tailwind CSS", "Jest", "Git CI/CD"]
+    title: "Class XII / Higher Secondary Education",
+    place: "Badri Higher Secondary School",
+    period: "Completed",
+    note: "86%"
   }
 ]
+
+export const experienceData = {
+  title: "Web Development Experience",
+  points: [
+    "Developed responsive website layouts using HTML, CSS, JavaScript, and React.js.",
+    "Customized WordPress websites using Advanced Custom Fields (ACF), custom theme development, and custom code.",
+    "Explored interactive web experiences using GSAP animations, reusable components, and modern frontend frameworks.",
+    "Worked on website deployment, project presentation, and Git/GitHub workflows.",
+    "Explored full-stack architecture, database integration, and admin dashboard functionality for dynamic websites."
+  ]
+}
 
 export const contactData = {
   badge: "Get In Touch",
-  heading: "Let's build something exceptional together.",
+  heading: "Let's",
+  headingGradient: "Connect.",
   subheading:
-    "Whether you have an ambitious new project, require a high-impact senior frontend specialist, or simply want to chat code & motion — my inbox is always open.",
-  infoItems: [
-    {
-      icon: "Mail",
-      title: "Direct Email",
-      value: "ali.creative.dev@gmail.com",
-      link: "mailto:ali.creative.dev@gmail.com",
-      actionText: "Send email"
-    },
-    {
-      icon: "Phone",
-      title: "Phone / WhatsApp",
-      value: "+1 (555) 234-8901",
-      link: "tel:+15552348901",
-      actionText: "Call now"
-    },
-    {
-      icon: "MapPin",
-      title: "Location",
-      value: "San Francisco, CA",
-      subvalue: "Available globally (EST / PST / UTC)",
-      link: null
-    },
-    {
-      icon: "Clock",
-      title: "Response Time",
-      value: "Within 24 Hours",
-      subvalue: "Monday – Friday",
-      link: null
-    }
-  ]
+    "Have a project in mind, or just want to talk web development? Send me a message and I'll get back to you."
 }
 
 export const footerData = {
-  copyright: `© ${new Date().getFullYear()} Ali Raza. Crafted with precision, React, Tailwind CSS & GSAP.`,
-  tagline: "Designed & engineered with love for beautiful digital motion."
+  copyright: `© ${new Date().getFullYear()} Aliasgar. All rights reserved.`
 }

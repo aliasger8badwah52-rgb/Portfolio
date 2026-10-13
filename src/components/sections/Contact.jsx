@@ -1,54 +1,35 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { personalInfo, contactData } from '../../data/portfolioData'
 import { gsap } from '../../hooks/useGSAP'
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Clock, 
-  Send, 
-  CheckCircle2, 
-  ArrowUpRight,
-  Loader2
-} from 'lucide-react'
-import { GithubIcon, LinkedinIcon, TwitterIcon, DribbbleIcon } from '../SocialIcons'
-import confetti from 'canvas-confetti'
+import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react'
+import { GithubIcon, LinkedinIcon, TwitterIcon } from '../SocialIcons'
 
-const iconMap = {
-  Mail,
-  Phone,
-  MapPin,
-  Clock
-}
+const allSocials = [
+  { label: 'GitHub', href: personalInfo.socialLinks.github, Icon: GithubIcon },
+  { label: 'LinkedIn', href: personalInfo.socialLinks.linkedin, Icon: LinkedinIcon },
+  { label: 'Twitter', href: personalInfo.socialLinks.twitter, Icon: TwitterIcon }
+]
 
 export default function Contact() {
   const sectionRef = useRef(null)
-  const formRef = useRef(null)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: 'New Project Opportunity',
-    budget: '$5k - $15k',
-    message: ''
-  })
-  const [status, setStatus] = useState('idle')
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+
+  // Only show contact details that have actually been filled in
+  const socials = allSocials.filter((s) => s.href)
+  const hasInfo = Boolean(personalInfo.email || personalInfo.location || socials.length)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         '.contact-fade-item',
-        { opacity: 0, y: 25 },
+        { opacity: 0, y: 28 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.1,
+          duration: 0.7,
+          stagger: 0.12,
           ease: 'power2.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none'
-          }
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', toggleActions: 'play none none none' }
         }
       )
     }, sectionRef)
@@ -57,300 +38,142 @@ export default function Contact() {
   }, [])
 
   const handleChange = (e) => {
-    setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  // No backend yet: open the visitor's email app with the message pre-filled
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (!formData.name || !formData.email || !formData.message) return
-
-    setStatus('submitting')
-    setTimeout(() => {
-      setStatus('success')
-      try {
-        confetti({
-          particleCount: 75,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#f59e0b', '#fbbf24', '#ffffff', '#71717a']
-        })
-      } catch (err) {
-        // silent fallback
-      }
-    }, 1000)
-  }
-
-  const handleReset = () => {
-    setFormData({
-      name: '',
-      email: '',
-      subject: 'New Project Opportunity',
-      budget: '$5k - $15k',
-      message: ''
-    })
-    setStatus('idle')
+    const subject = encodeURIComponent(`Portfolio enquiry from ${formData.name}`)
+    const body = encodeURIComponent(`${formData.message}\n\n— ${formData.name} (${formData.email})`)
+    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`
   }
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="relative py-28 overflow-hidden bg-[#0c0d12] border-t border-white/[0.06]"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="max-w-3xl mb-16 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#13141b] border border-white/10 text-xs font-mono text-zinc-400 uppercase tracking-wider mb-4">
-            <span>{contactData.badge}</span>
-          </div>
-          <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight mb-2">
-            Let's build something <span className="text-zinc-400 font-medium">remarkable.</span>
+    <section id="contact" ref={sectionRef} className="relative py-32 overflow-hidden bg-[#0c0d12] border-t border-white/[0.06]">
+      <div className="max-w-6xl mx-auto px-6 lg:px-10">
+
+        {/* Header */}
+        <div className="max-w-2xl mx-auto text-center mb-16">
+          <div className="section-badge mb-6">{contactData.badge}</div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight mb-5">
+            {contactData.heading} <span className="text-gradient">{contactData.headingGradient}</span>
           </h2>
-          <p className="text-base text-zinc-400">
-            {contactData.subheading}
-          </p>
+          <p className="text-lg text-zinc-400">{contactData.subheading}</p>
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          
-          {/* Left Column: Direct Info & Social Connections */}
-          <div className="lg:col-span-5 space-y-4">
-            
-            <div className="space-y-3">
-              {contactData.infoItems.map((item) => {
-                const IconComponent = iconMap[item.icon] || Mail
-                return (
-                  <div
-                    key={item.title}
-                    className="contact-fade-item editorial-card p-4 rounded-xl flex items-start gap-3.5 group"
-                  >
-                    <div className="w-9 h-9 rounded-lg bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-300 flex-shrink-0">
-                      <IconComponent className="w-4 h-4" />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-[11px] font-mono text-zinc-500 uppercase">{item.title}</p>
-                      {item.link ? (
-                        <a
-                          href={item.link}
-                          className="text-sm font-semibold text-white hover:text-zinc-300 transition-colors inline-flex items-center gap-1 mt-0.5"
-                        >
-                          <span>{item.value}</span>
-                          <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
-                        </a>
-                      ) : (
-                        <p className="text-sm font-semibold text-white mt-0.5">{item.value}</p>
-                      )}
-                      {item.subvalue && (
-                        <p className="text-xs text-zinc-500 mt-0.5">{item.subvalue}</p>
-                      )}
-                    </div>
+        <div className={hasInfo ? 'grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start' : 'max-w-2xl mx-auto'}>
+
+          {/* Contact details (only when provided) */}
+          {hasInfo && (
+            <div className="lg:col-span-5 space-y-5">
+              {personalInfo.email && (
+                <div className="contact-fade-item editorial-card p-5 rounded-2xl flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-300 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5" />
                   </div>
-                )
-              })}
-            </div>
-
-            {/* Social Connect Card */}
-            <div className="contact-fade-item editorial-card p-5 rounded-xl">
-              <h4 className="text-xs font-mono text-zinc-400 uppercase tracking-wider mb-3">
-                Professional Networks
-              </h4>
-              <div className="flex items-center gap-2.5">
-                <a
-                  href={personalInfo.socialLinks.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-[#202230] transition-all"
-                  aria-label="GitHub Profile"
-                >
-                  <GithubIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={personalInfo.socialLinks.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-[#202230] transition-all"
-                  aria-label="LinkedIn Profile"
-                >
-                  <LinkedinIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={personalInfo.socialLinks.twitter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-[#202230] transition-all"
-                  aria-label="Twitter Profile"
-                >
-                  <TwitterIcon className="w-4 h-4" />
-                </a>
-                <a
-                  href={personalInfo.socialLinks.dribbble}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-lg bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:bg-[#202230] transition-all"
-                  aria-label="Dribbble Profile"
-                >
-                  <DribbbleIcon className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
-
-          </div>
-
-          {/* Right Column: Clean Editorial Contact Form */}
-          <div className="lg:col-span-7">
-            <div className="contact-fade-item editorial-card p-6 sm:p-8 rounded-2xl">
-              
-              {status === 'success' ? (
-                <div className="py-12 flex flex-col items-center text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
-                    <CheckCircle2 className="w-6 h-6" />
+                  <div className="min-w-0">
+                    <p className="text-xs font-mono uppercase text-zinc-500">Email</p>
+                    <a
+                      href={`mailto:${personalInfo.email}`}
+                      className="text-base font-semibold text-white hover:text-amber-300 transition-colors break-words inline-flex items-center gap-1"
+                    >
+                      {personalInfo.email}
+                      <ArrowUpRight className="w-3.5 h-3.5 text-zinc-400" />
+                    </a>
                   </div>
-                  <h3 className="text-xl font-bold text-white font-heading">
-                    Message Received
-                  </h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 max-w-md">
-                    Thank you, <span className="text-zinc-200 font-medium">{formData.name}</span>. I have received your note and will get back to you within 24 hours.
-                  </p>
-                  <button
-                    type="button"
-                    onClick={handleReset}
-                    className="mt-4 px-4 py-2 rounded-lg text-xs font-medium bg-[#1a1c27] border border-white/10 text-zinc-200 hover:text-white transition-all"
-                  >
-                    Send Another Note
-                  </button>
                 </div>
-              ) : (
-                <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Name input */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="name" className="block text-xs font-mono text-zinc-400">
-                        Name <span className="text-amber-400">*</span>
-                      </label>
-                      <input
-                        id="name"
-                        type="text"
-                        name="name"
-                        required
-                        value={formData.name}
-                        onChange={handleChange}
-                        placeholder="Your name"
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0f14] border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all text-sm"
-                      />
-                    </div>
-
-                    {/* Email input */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="email" className="block text-xs font-mono text-zinc-400">
-                        Email Address <span className="text-amber-400">*</span>
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        name="email"
-                        required
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="you@domain.com"
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0f14] border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all text-sm"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {/* Subject / Project Category */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="subject" className="block text-xs font-mono text-zinc-400">
-                        Engagement Type
-                      </label>
-                      <select
-                        id="subject"
-                        name="subject"
-                        value={formData.subject}
-                        onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0f14] border border-white/10 text-zinc-200 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all text-sm"
-                      >
-                        <option value="New Web Application">New Web Application</option>
-                        <option value="Frontend Architecture">Frontend Architecture</option>
-                        <option value="GSAP / Motion Design">Motion / GSAP Redesign</option>
-                        <option value="Design System Consulting">Design System Consulting</option>
-                        <option value="Full-Time Opportunity">Full-Time Opportunity</option>
-                      </select>
-                    </div>
-
-                    {/* Estimated Budget */}
-                    <div className="space-y-1.5">
-                      <label htmlFor="budget" className="block text-xs font-mono text-zinc-400">
-                        Scope / Budget
-                      </label>
-                      <select
-                        id="budget"
-                        name="budget"
-                        value={formData.budget}
-                        onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0f14] border border-white/10 text-zinc-200 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all text-sm"
-                      >
-                        <option value="< $5k">&lt; $5,000</option>
-                        <option value="$5k - $15k">$5,000 - $15,000</option>
-                        <option value="$15k - $30k">$15,000 - $30,000</option>
-                        <option value="$30k+">$30,000+</option>
-                        <option value="Full-Time Employment">Full-Time Role</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Message textarea */}
-                  <div className="space-y-1.5">
-                    <label htmlFor="message" className="block text-xs font-mono text-zinc-400">
-                      Project Details <span className="text-amber-400">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={handleChange}
-                      placeholder="Outline your timeline, goals, and core deliverables..."
-                      className="w-full px-3.5 py-2.5 rounded-lg bg-[#0e0f14] border border-white/10 text-white placeholder-zinc-600 focus:outline-none focus:border-white/30 focus:ring-1 focus:ring-white/20 transition-all text-sm resize-none"
-                    />
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={status === 'submitting'}
-                    id="contact-submit-btn"
-                    className="btn-editorial-primary w-full flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold transition-all disabled:opacity-60"
-                  >
-                    {status === 'submitting' ? (
-                      <>
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                        <span>Sending message...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Send Message</span>
-                        <Send className="w-3.5 h-3.5" />
-                      </>
-                    )}
-                  </button>
-
-                  <p className="text-center text-[11px] font-mono text-zinc-500">
-                    Direct reply guaranteed within 24 hours.
-                  </p>
-
-                </form>
               )}
 
+              {personalInfo.location && (
+                <div className="contact-fade-item editorial-card p-5 rounded-2xl flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-400/10 border border-emerald-400/20 text-emerald-300 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-mono uppercase text-zinc-500">Location</p>
+                    <p className="text-base font-semibold text-white">{personalInfo.location}</p>
+                  </div>
+                </div>
+              )}
+
+              {socials.length > 0 && (
+                <div className="contact-fade-item flex items-center gap-3 pt-2">
+                  {socials.map(({ label, href, Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="w-12 h-12 rounded-xl bg-[#181a24] border border-white/10 flex items-center justify-center text-zinc-300 hover:text-white hover:border-white/30 transition-all"
+                    >
+                      <Icon className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
+          )}
+
+          {/* Form */}
+          <div className={hasInfo ? 'lg:col-span-7' : ''}>
+            <form onSubmit={handleSubmit} className="contact-fade-item editorial-card rounded-2xl p-8 sm:p-10 space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div className="space-y-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-zinc-300">Name</label>
+                  <input
+                    id="name"
+                    type="text"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    className="field"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-zinc-300">Email</label>
+                  <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@domain.com"
+                    className="field"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label htmlFor="message" className="block text-sm font-medium text-zinc-300">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  required
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Tell me about your project..."
+                  className="field resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                id="contact-submit-btn"
+                className="btn-editorial-primary w-full flex items-center justify-center gap-2 py-3.5 rounded-full text-sm font-semibold"
+              >
+                <span>Send Message</span>
+                <Send className="w-4 h-4" />
+              </button>
+            </form>
           </div>
 
         </div>
-
       </div>
     </section>
   )

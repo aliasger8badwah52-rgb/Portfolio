@@ -93,15 +93,14 @@ export default function CustomCursor() {
       {/* Trailing fluid magnetic ring */}
       <div
         ref={ringRef}
-        className={`fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/30 backdrop-blur-[1px] will-change-transform flex items-center justify-center transition-all duration-200 ${
-          cursorText
+        className={`fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/30 backdrop-blur-[1px] will-change-transform flex items-center justify-center transition-all duration-200 ${cursorText
             ? 'w-16 h-16 bg-white/10 border-white/40 scale-100'
             : isHovered
-            ? 'w-11 h-11 bg-white/10 border-white/50 scale-105'
-            : isClicking
-            ? 'w-6 h-6 border-white/60 bg-white/20'
-            : 'w-8 h-8 bg-transparent'
-        }`}
+              ? 'w-11 h-11 bg-white/10 border-white/50 scale-105'
+              : isClicking
+                ? 'w-6 h-6 border-white/60 bg-white/20'
+                : 'w-8 h-8 bg-transparent'
+          }`}
       >
         {cursorText && (
           <span className="text-[10px] font-mono font-bold tracking-widest text-white select-none">
