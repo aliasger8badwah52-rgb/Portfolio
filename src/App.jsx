@@ -1,51 +1,64 @@
-import React, { useEffect, useRef } from 'react'
-import Navbar from './components/sections/Navbar'
-import Hero from './components/sections/Hero'
-import KineticTicker from './components/KineticTicker'
-import About from './components/sections/About'
-import Skills from './components/sections/Skills'
-import Projects from './components/sections/Projects'
-import Experience from './components/sections/Experience'
-import Contact from './components/sections/Contact'
-import Footer from './components/sections/Footer'
-import { gsap } from './hooks/useGSAP'
+import React, { useEffect, useState } from 'react'
+import Lenis from 'lenis'
+import Navbar from './components/sections/Navbar.jsx'
+import Hero from './components/sections/Hero.jsx'
+import KineticTicker from './components/KineticTicker.jsx'
+import About from './components/sections/About.jsx'
+import Skills from './components/sections/Skills.jsx'
+import Projects from './components/sections/Projects.jsx'
+import Experience from './components/sections/Experience.jsx'
+import Contact from './components/sections/Contact.jsx'
+import Footer from './components/sections/Footer.jsx'
+import Preloader from './components/Preloader.jsx'
+import CustomCursor from './components/CustomCursor.jsx'
+import { gsap, ScrollTrigger } from './hooks/useGSAP.js'
 
 export default function App() {
-  const cursorFollowerRef = useRef(null)
+  const [preloaderDone, setPreloaderDone] = useState(false)
 
+  // Initialize Lenis smooth inertia scrolling
   useEffect(() => {
-    // Subtle ambient cursor glow follower on desktop
-    const handleMouseMove = (e) => {
-      if (cursorFollowerRef.current && window.innerWidth > 1024) {
-        gsap.to(cursorFollowerRef.current, {
-          x: e.clientX,
-          y: e.clientY,
-          duration: 0.6,
-          ease: 'power2.out'
-        })
-      }
+    const lenis = new Lenis({
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 1.5
+    })
+
+    // Synchronize Lenis with GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update)
+
+    const updateLenis = (time) => {
+      lenis.raf(time * 1000)
     }
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    gsap.ticker.add(updateLenis)
+    gsap.ticker.lagSmoothing(0)
+
+    return () => {
+      gsap.ticker.remove(updateLenis)
+      lenis.destroy()
+    }
   }, [])
 
   return (
     <div className="relative min-h-screen bg-[#0c0d12] text-zinc-100 selection:bg-amber-400/20 selection:text-amber-100">
       
-      {/* Ambient subtle spotlight follower on desktop */}
-      <div
-        ref={cursorFollowerRef}
-        className="fixed top-0 left-0 w-96 h-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/[0.015] blur-3xl pointer-events-none -z-0 hidden lg:block"
-        style={{ willChange: 'transform' }}
-      />
+      {/* Cinematic Opening Preloader */}
+      <Preloader onComplete={() => setPreloaderDone(true)} />
+
+      {/* Fluid Interactive Physics Cursor */}
+      <CustomCursor />
 
       {/* Navigation */}
       <Navbar />
 
       {/* Main Content Sections */}
       <main className="relative z-10 flex flex-col">
-        <Hero />
+        <Hero preloaderDone={preloaderDone} />
         <KineticTicker />
         <About />
         <Skills />

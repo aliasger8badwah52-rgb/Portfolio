@@ -12,6 +12,7 @@ import {
   Loader2
 } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, TwitterIcon, DribbbleIcon } from '../SocialIcons'
+import confetti from 'canvas-confetti'
 
 const iconMap = {
   Mail,
@@ -66,6 +67,16 @@ export default function Contact() {
     setStatus('submitting')
     setTimeout(() => {
       setStatus('success')
+      try {
+        confetti({
+          particleCount: 75,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#f59e0b', '#fbbf24', '#ffffff', '#71717a']
+        })
+      } catch (err) {
+        // silent fallback
+      }
     }, 1000)
   }
 

@@ -15,7 +15,7 @@ import {
 import InteractiveCanvas from '../InteractiveCanvas'
 import MagneticElement from '../MagneticElement'
 
-export default function Hero() {
+export default function Hero({ preloaderDone }) {
   const heroRef = useRef(null)
   const headlineWordsRef = useRef([])
   const subheadlineRef = useRef(null)
@@ -51,7 +51,10 @@ export default function Hero() {
   // Cinematic GSAP entrance choreography
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+      const tl = gsap.timeline({
+        delay: preloaderDone ? 0.05 : 0.4,
+        defaults: { ease: 'power4.out' }
+      })
 
       // 1. Availability badge fade in with slight elastic bounce
       tl.fromTo(
@@ -118,7 +121,7 @@ export default function Hero() {
     }, heroRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [preloaderDone])
 
   // 3D Tilt interaction on Showcase Card
   const handleCardMouseMove = (e) => {

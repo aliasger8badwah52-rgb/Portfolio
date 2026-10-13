@@ -18,24 +18,35 @@ export default function InteractiveCanvas() {
     if (prefersReducedMotion) return
 
     const particles = []
-    const particleCount = Math.min(Math.floor((width * height) / 14000), 75)
-    const maxDistance = 120
+    const particleCount = Math.min(Math.floor((width * height) / 12000), 85)
+    const maxDistance = 135
 
     const mouse = {
       x: null,
       y: null,
-      radius: 140
+      radius: 170,
+      prevX: null,
+      prevY: null,
+      speed: 0
     }
 
-    // Initialize particles
+    let time = 0
+
+    // Initialize particles with wave frequencies
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.45,
-        vy: (Math.random() - 0.5) * 0.45,
-        baseRadius: Math.random() * 1.5 + 1,
-        radius: Math.random() * 1.5 + 1
+        baseX: Math.random() * width,
+        baseY: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        baseRadius: Math.random() * 1.6 + 0.9,
+        radius: Math.random() * 1.6 + 0.9,
+        phase: Math.random() * Math.PI * 2,
+        frequency: Math.random() * 0.02 + 0.008,
+        pulseSpeed: Math.random() * 0.04 + 0.02,
+        colorAlpha: Math.random() * 0.35 + 0.2
       })
     }
 
@@ -47,56 +58,94 @@ export default function InteractiveCanvas() {
 
     const handleMouseMove = (e) => {
       const rect = canvas.getBoundingClientRect()
-      mouse.x = e.clientX - rect.left
-      mouse.y = e.clientY - rect.top
+      const newX = e.clientX - rect.left
+      const newY = e.clientY - rect.top
+
+      if (mouse.x !== null && mouse.y !== null) {
+        const dx = newX - mouse.x
+        const dy = newY - mouse.y
+        mouse.speed = Math.min(Math.hypot(dx, dy), 35)
+      }
+
+      mouse.x = newX
+      mouse.y = newY
     }
 
     const handleMouseLeave = () => {
       mouse.x = null
       mouse.y = null
+      mouse.speed = 0
     }
 
     window.addEventListener('resize', handleResize)
-    canvas.parentElement.addEventListener('mousemove', handleMouseMove)
+    canvas.parentElement.addEventListener('mousemove', handleMouseMove, { passive: true })
     canvas.parentElement.addEventListener('mouseleave', handleMouseLeave)
 
     const render = () => {
       ctx.clearRect(0, 0, width, height)
+      time += 0.015
+
+      // Decay mouse velocity
+      mouse.speed *= 0.92
+
+      // Draw subtle mouse aura when present
+      if (mouse.x !== null && mouse.y !== null) {
+        const mouseGradient = ctx.createRadialGradient(
+          mouse.x, mouse.y, 0,
+          mouse.x, mouse.y, mouse.radius
+        )
+        mouseGradient.addColorStop(0, 'rgba(245, 158, 11, 0.035)')
+        mouseGradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.015)')
+        mouseGradient.addColorStop(1, 'transparent')
+        ctx.fillStyle = mouseGradient
+        ctx.beginPath()
+        ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2)
+        ctx.fill()
+      }
 
       // Update & Draw particles
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i]
 
-        // Drift
-        p.x += p.vx
-        p.y += p.vy
+        // Harmonious fluid oscillation
+        p.x += p.vx + Math.cos(time + p.phase) * 0.25
+        p.y += p.vy + Math.sin(time + p.phase) * 0.25
 
-        // Wrap around bounds
+        // Gentle breathing pulse
+        p.radius = p.baseRadius + Math.sin(time * 3 + p.phase) * 0.4
+
+        // Bounds wrapping
         if (p.x < 0) p.x = width
         if (p.x > width) p.x = 0
         if (p.y < 0) p.y = height
         if (p.y > height) p.y = 0
 
-        // Mouse interaction: Gentle spring repulsion
+        // Interactive mouse physics: Vortex & Elastic Repulsion
         if (mouse.x !== null && mouse.y !== null) {
           const dx = mouse.x - p.x
           const dy = mouse.y - p.y
           const dist = Math.hypot(dx, dy)
 
           if (dist < mouse.radius) {
-            const force = (1 - dist / mouse.radius) * 1.8
+            const force = (1 - dist / mouse.radius) * (2.2 + mouse.speed * 0.08)
+            // Push away
             p.x -= (dx / dist) * force
             p.y -= (dy / dist) * force
+
+            // Slight swirl perpendicular to angle
+            const angle = Math.atan2(dy, dx)
+            p.x += Math.sin(angle) * (force * 0.3)
+            p.y -= Math.cos(angle) * (force * 0.3)
           }
         }
 
         // Draw particle dot
         ctx.beginPath()
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(244, 244, 245, 0.25)'
+        ctx.arc(p.x, p.y, Math.max(p.radius, 0.5), 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(244, 244, 245, ${p.colorAlpha})`
         ctx.fill()
 
-        // Connect nearby particles
+        // Connect nearby particles with subtle gradient lines
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j]
           const dx = p.x - p2.x
@@ -104,12 +153,12 @@ export default function InteractiveCanvas() {
           const dist = Math.hypot(dx, dy)
 
           if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.12
+            const alpha = (1 - dist / maxDistance) * 0.14
             ctx.beginPath()
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
             ctx.strokeStyle = `rgba(244, 244, 245, ${alpha})`
-            ctx.lineWidth = 0.8
+            ctx.lineWidth = 0.75
             ctx.stroke()
           }
         }
