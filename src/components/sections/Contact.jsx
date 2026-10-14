@@ -3,6 +3,7 @@ import { personalInfo, contactData } from '../../data/portfolioData'
 import { gsap } from '../../hooks/useGSAP'
 import { Mail, MapPin, Send, ArrowUpRight } from 'lucide-react'
 import { GithubIcon, LinkedinIcon, TwitterIcon } from '../SocialIcons'
+import WordFlip from '../WordFlip'
 
 const allSocials = [
   { label: 'GitHub', href: personalInfo.socialLinks.github, Icon: GithubIcon },
@@ -57,7 +58,11 @@ export default function Contact() {
         <div className="max-w-2xl mx-auto text-center mb-16">
           <div className="section-badge mb-6">{contactData.badge}</div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight mb-5">
-            {contactData.heading} <span className="text-gradient">{contactData.headingGradient}</span>
+            {contactData.heading}{' '}
+            <WordFlip
+              words={['Connect.', 'Talk Code.', 'Build Big.', 'Team Up.']}
+              className="text-gradient font-bold"
+            />
           </h2>
           <p className="text-lg text-zinc-400">{contactData.subheading}</p>
         </div>

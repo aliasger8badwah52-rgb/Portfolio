@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react'
 import { projectsData } from '../../data/portfolioData'
 import { gsap } from '../../hooks/useGSAP'
 import { ExternalLink, ShoppingBag, Bot, LayoutDashboard, PenTool } from 'lucide-react'
+import WordFlip from '../WordFlip'
 
 const projectIcons = { ShoppingBag, Bot, LayoutDashboard, PenTool }
 
@@ -39,7 +40,11 @@ export default function Projects() {
         <div className="max-w-2xl mx-auto text-center mb-16">
           <div className="section-badge mb-6">Selected Work</div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight">
-            Projects I've <span className="text-gradient">Worked On</span>
+            Projects I've{' '}
+            <WordFlip
+              words={['Worked On', 'Built Live', 'Crafted Up', 'Shipped Out']}
+              className="text-gradient font-bold"
+            />
           </h2>
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { skillsData } from '../../data/portfolioData'
 import { gsap } from '../../hooks/useGSAP'
+import WordFlip from '../WordFlip'
 import {
   Code2,
   FileCode,
@@ -65,7 +66,11 @@ export default function Skills() {
         <div className="max-w-2xl mx-auto text-center mb-14">
           <div className="section-badge mb-6">{skillsData.badge}</div>
           <h2 className="text-4xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight">
-            Skills & <span className="text-gradient">Technologies</span>
+            Skills &{' '}
+            <WordFlip
+              words={['Technologies', 'Modern Tools', 'Capabilities', 'Core Stacks']}
+              className="text-gradient font-bold"
+            />
           </h2>
         </div>
 
@@ -76,11 +81,10 @@ export default function Skills() {
               key={cat.name}
               type="button"
               onClick={() => setActiveCategory(idx)}
-              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
-                activeCategory === idx
+              className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${activeCategory === idx
                   ? 'bg-white text-zinc-950 font-semibold'
                   : 'bg-[#13141b] text-zinc-400 hover:text-white border border-white/[0.08] hover:border-white/20'
-              }`}
+                }`}
             >
               {cat.name}
             </button>

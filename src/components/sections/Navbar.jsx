@@ -36,7 +36,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Animate mobile menu open/close
+  // animate Mobile menu open/close
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden'
@@ -64,11 +64,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? 'py-3.5 bg-[#0c0d12]/85 backdrop-blur-md border-b border-white/[0.06] shadow-md shadow-black/20'
-            : 'py-6 bg-transparent border-b border-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? 'py-3.5 bg-[#0c0d12]/85 backdrop-blur-md border-b border-white/[0.06] shadow-md shadow-black/20'
+          : 'py-6 bg-transparent border-b border-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 flex items-center justify-between">
           {/* Logo */}
@@ -93,11 +92,10 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className={`px-3.5 py-1 text-sm font-medium rounded-full transition-all duration-150 ${
-                    isActive
-                      ? 'bg-white/[0.09] text-white border border-white/10'
-                      : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]'
-                  }`}
+                  className={`px-3.5 py-1 text-sm font-medium rounded-full transition-all duration-150 ${isActive
+                    ? 'bg-white/[0.09] text-white border border-white/10'
+                    : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]'
+                    }`}
                 >
                   {link.name}
                 </a>
@@ -147,9 +145,8 @@ export default function Navbar() {
                   ref={(el) => (menuLinksRef.current[idx] = el)}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className={`py-4 px-5 rounded-xl text-lg font-medium transition-colors ${
-                    isActive ? 'bg-white/[0.08] text-white border border-white/10' : 'text-zinc-300 hover:bg-white/5'
-                  }`}
+                  className={`py-4 px-5 rounded-xl text-lg font-medium transition-colors ${isActive ? 'bg-white/[0.08] text-white border border-white/10' : 'text-zinc-300 hover:bg-white/5'
+                    }`}
                 >
                   {link.name}
                 </a>

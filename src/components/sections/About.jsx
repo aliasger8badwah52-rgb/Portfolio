@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { aboutData, projectsData, skillsData } from '../../data/portfolioData'
 import { gsap } from '../../hooks/useGSAP'
+import WordFlip from '../WordFlip'
 
 // Stats are calculated from real data so they never go out of sync
 const stats = [
@@ -58,7 +59,16 @@ export default function About() {
           <div className="lg:col-span-5 flex flex-col items-start text-left lg:sticky lg:top-32">
             <div className="about-fade section-badge mb-6">{aboutData.badge}</div>
             <h2 className="about-fade text-4xl sm:text-5xl font-bold text-white tracking-tight font-heading leading-tight">
-              {aboutData.heading} <span className="text-gradient">{aboutData.headingGradient}</span>
+              {aboutData.heading}{' '}
+              <WordFlip
+                words={[
+                  'digital solutions.',
+                  'modern interfaces.',
+                  'creative products.',
+                  'web applications.'
+                ]}
+                className="text-gradient font-bold"
+              />
             </h2>
           </div>
 

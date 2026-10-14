@@ -3,6 +3,8 @@ import { personalInfo, heroData } from '../../data/portfolioData'
 import { gsap } from '../../hooks/useGSAP'
 import { ArrowRight } from 'lucide-react'
 import MagneticElement from '../MagneticElement'
+import WordFlip from '../WordFlip'
+import NameLetterRescue from '../NameLetterRescue'
 
 const chipPositions = ['top-4 -left-4', 'top-1/2 -right-6', 'bottom-6 -left-2']
 
@@ -43,12 +45,21 @@ export default function Hero({ preloaderDone }) {
           <div className="lg:col-span-7 flex flex-col items-start text-left">
             <div className="hero-fade section-badge mb-8">{personalInfo.badge}</div>
 
-            <h1 className="hero-fade text-5xl sm:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-6 font-heading leading-[1.08]">
-              Hi, I'm <span className="text-gradient">Aliasgar.</span>
+            <h1 className="hero-fade text-5xl sm:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-6 font-heading leading-[1.08] overflow-visible">
+              Hi, I'm <NameLetterRescue name="Aliasgar" preloaderDone={preloaderDone} /><span className="text-gradient font-heading font-bold">.</span>
             </h1>
 
             <p className="hero-fade text-2xl sm:text-3xl font-semibold text-zinc-200 font-heading leading-snug mb-6 max-w-2xl">
-              {heroData.headline}
+              I Build Digital Experiences That{' '}
+              <WordFlip
+                words={[
+                  'Make an Impact.',
+                  'Drive Progress.',
+                  'Inspire Action.',
+                  'Elevate Brands.'
+                ]}
+                className="text-gradient font-bold"
+              />
             </p>
 
             <p className="hero-fade text-lg text-zinc-400 max-w-2xl leading-relaxed mb-10">

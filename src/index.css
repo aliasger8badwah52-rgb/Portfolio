@@ -147,6 +147,7 @@
   background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   animation: light-sweep 3.5s ease-in-out infinite;
 }
+
 /* Section eyebrow badge */
 .section-badge {
   display: inline-flex;
