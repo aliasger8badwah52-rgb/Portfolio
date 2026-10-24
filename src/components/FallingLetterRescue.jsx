@@ -85,20 +85,17 @@ export default function FallingLetterRescue({
       }
     })
 
-    // Step 0: Ensure starting state
     gsap.set(path, { opacity: 0 })
     gsap.set(sparkle, { opacity: 0, scale: 0 })
-
-    // Step 1: Letter wobbles and loses grip (Teetering)
     tl.to(letter, {
-      y: 4,
+      y: 30,
       rotation: -12,
-      duration: 0.28,
+      duration: 0.38,
       ease: 'power1.in',
       transformOrigin: 'bottom left'
     })
 
-    // Step 2: Sudden Plummet! (Gravity acceleration)
+ 
     tl.to(letter, {
       y: 56,
       rotation: -38,
@@ -107,7 +104,6 @@ export default function FallingLetterRescue({
       transformOrigin: 'top center'
     })
 
-    // Step 3: Tether catches! The line appears and snaps taut
     tl.add(() => {
       setStatus('Caught')
       gsap.to(path, { opacity: 1, duration: 0.08 })
@@ -118,7 +114,7 @@ export default function FallingLetterRescue({
       holder,
       {
         y: 6,
-        rotation: -6,
+        rotation: -7,
         duration: 0.2,
         ease: 'power2.out',
         transformOrigin: 'bottom left'

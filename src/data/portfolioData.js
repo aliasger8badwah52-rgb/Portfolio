@@ -79,19 +79,10 @@ export const skillsData = {
         { name: "Elementor", icon: "Layout" }
       ]
     },
-    {
-      name: "Backend & Database",
-      skills: [
-        { name: "Node.js", icon: "Server" },
-        { name: "Express.js", icon: "Network" },
-        { name: "PostgreSQL / Neon", icon: "Database" },
-        { name: "REST APIs", icon: "Network" }
-      ]
-    },
+
     {
       name: "Tools & Other",
       skills: [
-        { name: "Git", icon: "GitBranch" },
         { name: "GitHub", icon: "GitBranch" },
         { name: "Microsoft Excel (Advanced)", icon: "FileSpreadsheet" },
         { name: "Microsoft Word", icon: "FileText" }

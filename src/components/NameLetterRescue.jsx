@@ -287,7 +287,7 @@ export default function NameLetterRescue({
       title="Click to replay letter drop & hand rescue!"
       className="inline-block relative overflow-visible cursor-pointer select-none align-baseline group"
     >
-      {/* SVG Layer for Arm & Grasping Hand from previous 'a' to 'r' */}
+      {/* SVG Layer for Arm & grasping Hand from previous 'a' to 'r' */}
       <svg
         className="absolute inset-0 pointer-events-none overflow-visible w-full h-full z-40"
         aria-hidden="true"
@@ -383,7 +383,7 @@ export default function NameLetterRescue({
         </g>
       </svg>
 
-      {/* Render each letter individually with gradient */}
+      {/* Render each letter */}
       <span className="inline-flex relative z-10">
         {chars.map((char, index) => {
           const isPrevA = index === indexPrevA

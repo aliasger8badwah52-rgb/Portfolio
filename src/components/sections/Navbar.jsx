@@ -92,7 +92,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => scrollToSection(e, link.href)}
-                  className={`px-3.5 py-1 text-sm font-medium rounded-full transition-all duration-150 ${isActive
+                  className={`px-3.5 py-1 text-sm font-small rounded-full transition-all duration-150 ${isActive
                     ? 'bg-white/[0.09] text-white border border-white/10'
                     : 'text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]'
                     }`}
