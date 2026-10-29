@@ -101,7 +101,7 @@ export default function WordFlip({
     )
   }
 
-  // Automatic interval cycle
+  
   useEffect(() => {
     timerRef.current = setInterval(() => {
       flipToNext()

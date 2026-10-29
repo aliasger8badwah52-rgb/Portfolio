@@ -12,17 +12,15 @@ export { gsap, ScrollTrigger }
 export const useGSAP = useGSAPOfficial
 
 /**
- * Custom hook to safely initialize GSAP context with automatic cleanup
- * @param {Function} callback - Function containing GSAP animations
- * @param {Array} dependencies - React dependency array
- * @returns {React.RefObject} - Ref object to attach to the container element
+
+ * @param {Function} callback
+ * @param {Array} dependencies 
+ * @returns {React.RefObject}
  */
 export function useGSAPContext(callback, dependencies = []) {
   const containerRef = useRef(null)
-
   useEffect(() => {
     if (!containerRef.current) return
-
     const ctx = gsap.context(() => {
       callback(containerRef.current)
     }, containerRef)

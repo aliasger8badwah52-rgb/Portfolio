@@ -89,7 +89,6 @@ export default function Hero({ preloaderDone }) {
               </MagneticElement>
             </div>
           </div>
-
           {/* Right: monogram (or photo) with three floating chips */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end">
             <div ref={visualRef} className="relative w-full max-w-sm aspect-square">
